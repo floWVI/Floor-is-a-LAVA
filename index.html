@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <title>The Floor is Lava — приключения Пушистика</title>
+
+</head>
+<body>
+<div class="game-container" style="position: relative; width: 1024px; height: 768px;">
+    <canvas id="gameCanvas" width="1024" height="768"></canvas>
+
+    <div class="ui-overlay" id="gameUI" style="opacity:0; visibility: hidden; transition: 0.3s;">
+        <div class="stats">
+            🪙 МОНЕТЫ <span id="coinCounter">0</span>
+        </div>
+        <div class="stats">
+            📏 МЕТРЫ <span id="distanceCounter">0</span>
+        </div>
+    </div>
+
+    <div id="mainMenu" class="menu-panel">
+        <div class="menu-card">
+            <h1>🌋 THE FLOOR IS LAVA 🌋</h1>
+            <div class="name-input">
+                <input type="text" id="playerNameInput" placeholder="Имя пушистика" maxlength="16" autocomplete="off">
+            </div>
+            <button id="startGameBtn" class="start-btn">🔥 СТАРТ 🔥</button>
+            <div class="leaderboard">
+                <h3>🏆 ТОП-10 ЛИДЕРОВ 🏆</h3>
+                <ol id="leaderboardList">
+                    <li>— Загрузка —</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameOverlay" class="gameover-panel hidden">
+        <div class="gameover-card">
+            <h2 style="color:#ff7b42; font-size: 2rem;">💀 ПОРАЖЕНИЕ 💀</h2>
+            <p>📏 Пройдено: <strong id="finalDistance">0</strong> м</p>
+            <p>🪙 Собрано монет: <strong id="finalCoins">0</strong></p>
+            <div class="flex-btns">
+                <button id="restartBtnGameOver">🔄 ЗАНОВО</button>
+                <button id="exitToMenuBtn">🏠 МЕНЮ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="JS/JavaScript.js"></script>
+</body>
+</html>
