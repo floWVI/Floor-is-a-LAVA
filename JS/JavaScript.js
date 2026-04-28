@@ -1,3 +1,4 @@
+   // -------- ЗВУКИ --------
 const sounds = {
     coin: new Audio('Assets/coin.mp3'),
     lava: new Audio('Assets/Lava.mp3'),
