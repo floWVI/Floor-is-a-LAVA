@@ -269,88 +269,85 @@ sounds.button.volume = 0.3;
     }
     
     function drawMinimal() {
-        ctx.fillStyle = "#0a0a0a";
-        ctx.fillRect(0, 0, GAME_W, GAME_H);
-        
-        for(let i = 0; i < GAME_W; i += 40) {
-            ctx.beginPath();
-            ctx.strokeStyle = "#141414";
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(i, 0);
-            ctx.lineTo(i, LAVA_LEVEL - 10);
-            ctx.stroke();
-        }
-        
-        for(let plat of platforms) {
-            let sx = plat.x - cameraX;
-            if(sx + plat.width < -30 || sx > GAME_W + 50) continue;
-            ctx.fillStyle = "#1a1a1a";
-            ctx.fillRect(sx, plat.y, plat.width, plat.height);
-            ctx.fillStyle = "#222";
-            ctx.fillRect(sx + 2, plat.y - 2, plat.width - 4, 3);
-            
-            if(plat.hasCoin && !plat.coinCollected) {
-                let coinX = plat.x + plat.width/2 - COIN_SIZE/2 - cameraX;
-                let coinY = plat.y - COIN_SIZE + 4 + Math.sin(Date.now() * 0.008) * 1.5;
-                ctx.fillStyle = "#ffffff";
-                ctx.beginPath();
-                ctx.ellipse(coinX + COIN_SIZE/2, coinY + COIN_SIZE/2, COIN_SIZE/2.2, COIN_SIZE/2.2, 0, 0, Math.PI*2);
-                ctx.fill();
-                ctx.fillStyle = "#0a0a0a";
-                ctx.beginPath();
-                ctx.ellipse(coinX + COIN_SIZE/2, coinY + COIN_SIZE/2, COIN_SIZE/3.5, COIN_SIZE/3.5, 0, 0, Math.PI*2);
-                ctx.fill();
-            }
-        }
-        
-        ctx.fillStyle = "#1c1c1c";
-        ctx.fillRect(0, LAVA_LEVEL, GAME_W, GAME_H - LAVA_LEVEL);
-        ctx.fillStyle = "#222";
-        for(let i=0;i<12;i++) {
-            ctx.fillRect(0, LAVA_LEVEL + 2 + i*6, GAME_W, 1);
-        }
-        
-        let px = player.x - cameraX;
-        let py = player.y;
-        ctx.save();
-        let tilt = player.vx * 1.2;
-        ctx.translate(px + player.width/2, py + player.height/2);
-        ctx.rotate(Math.min(Math.max(tilt * 0.02, -0.1), 0.1));
-        ctx.translate(-(px + player.width/2), -(py + player.height/2));
-        
-        ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#0a0a0a";
+    ctx.fillRect(0, 0, GAME_W, GAME_H);
+    
+    for(let i = 0; i < GAME_W; i += 40) {
         ctx.beginPath();
-        ctx.rect(px + 4, py + 4, player.width - 8, player.height - 8);
-        ctx.fill();
-        ctx.fillStyle = "#0a0a0a";
-        let eyeOffset = player.facingRight ? 6 : -6;
-        ctx.beginPath();
-        ctx.arc(px + player.width/2 + eyeOffset - 3, py + player.height/2 - 3, 2.5, 0, Math.PI*2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(px + player.width/2 - eyeOffset - 3, py + player.height/2 - 3, 2.5, 0, Math.PI*2);
-        ctx.fill();
-        
-        ctx.fillStyle = "#fff";
-        ctx.beginPath();
-        ctx.arc(px + player.width/2 + eyeOffset - 3.8, py + player.height/2 - 4, 0.9, 0, Math.PI*2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(px + player.width/2 - eyeOffset - 3.8, py + player.height/2 - 4, 0.9, 0, Math.PI*2);
-        ctx.fill();
-        
-        ctx.restore();
-        
-        ctx.fillStyle = "#fff";
-        ctx.font = "10px monospace";
-        ctx.fillText("minimal run", 16, 30);
+        ctx.strokeStyle = "#141414";
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, LAVA_LEVEL - 10);
+        ctx.stroke();
     }
     
-    function gameLoop() {
-        if(gameActive) updateGame();
-        drawMinimal();
-        requestAnimationFrame(gameLoop);
+    for(let plat of platforms) {
+        let sx = plat.x - cameraX;
+        if(sx + plat.width < -30 || sx > GAME_W + 50) continue;
+        ctx.fillStyle = "#1a1a1a";
+        ctx.fillRect(sx, plat.y, plat.width, plat.height);
+        ctx.fillStyle = "#222";
+        ctx.fillRect(sx + 2, plat.y - 2, plat.width - 4, 3);
+        
+        if(plat.hasCoin && !plat.coinCollected) {
+            let coinX = plat.x + plat.width/2 - COIN_SIZE/2 - cameraX;
+            let coinY = plat.y - COIN_SIZE + 4 + Math.sin(Date.now() * 0.008) * 1.5;
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.ellipse(coinX + COIN_SIZE/2, coinY + COIN_SIZE/2, COIN_SIZE/2.2, COIN_SIZE/2.2, 0, 0, Math.PI*2);
+            ctx.fill();
+            ctx.fillStyle = "#0a0a0a";
+            ctx.beginPath();
+            ctx.ellipse(coinX + COIN_SIZE/2, coinY + COIN_SIZE/2, COIN_SIZE/3.5, COIN_SIZE/3.5, 0, 0, Math.PI*2);
+            ctx.fill();
+        }
     }
+    
+    ctx.fillStyle = "#1c1c1c";
+    ctx.fillRect(0, LAVA_LEVEL, GAME_W, GAME_H - LAVA_LEVEL);
+    ctx.fillStyle = "#222";
+    for(let i=0;i<12;i++) {
+        ctx.fillRect(0, LAVA_LEVEL + 2 + i*6, GAME_W, 1);
+    }
+    
+    let px = player.x - cameraX;
+    let py = player.y;
+    ctx.save();
+    let tilt = player.vx * 1.2;
+    ctx.translate(px + player.width/2, py + player.height/2);
+    ctx.rotate(Math.min(Math.max(tilt * 0.02, -0.1), 0.1));
+    ctx.translate(-(px + player.width/2), -(py + player.height/2));
+    
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.rect(px + 4, py + 4, player.width - 8, player.height - 8);
+    ctx.fill();
+    
+    ctx.fillStyle = "#0a0a0a";
+    let eyeOffset = 7;
+    let eyeXOffset = player.facingRight ? eyeOffset : -eyeOffset;
+    
+    ctx.beginPath();
+    ctx.arc(px + player.width/2 + eyeXOffset, py + player.height/2 - 4, 2.5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(px + player.width/2 - eyeXOffset, py + player.height/2 - 4, 2.5, 0, Math.PI*2);
+    ctx.fill();
+    
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.arc(px + player.width/2 + eyeXOffset - 1, py + player.height/2 - 5, 0.9, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(px + player.width/2 - eyeXOffset - 1, py + player.height/2 - 5, 0.9, 0, Math.PI*2);
+    ctx.fill();
+    
+    ctx.restore();
+    
+    ctx.fillStyle = "#fff";
+    ctx.font = "10px monospace";
+    ctx.fillText("minimal run", 16, 30);
+}
     
     function initMenus() {
         const startBtn = document.getElementById("startGameBtn");
