@@ -268,7 +268,7 @@ sounds.button.volume = 0.3;
         addScoreEntry(currentPlayerName, finalDist, finalCoins);
     }
     
-    function drawMinimal() {
+function drawMinimal() {
     ctx.fillStyle = "#0a0a0a";
     ctx.fillRect(0, 0, GAME_W, GAME_H);
     
@@ -348,6 +348,12 @@ sounds.button.volume = 0.3;
     ctx.font = "10px monospace";
     ctx.fillText("minimal run", 16, 30);
 }
+    
+    function gameLoop() {
+        if(gameActive) updateGame();
+        drawMinimal();
+        requestAnimationFrame(gameLoop);
+    }
     
     function initMenus() {
         const startBtn = document.getElementById("startGameBtn");
