@@ -8,46 +8,47 @@
 
 </head>
 <body>
-<div class="game-container" style="position: relative; width: 1024px; height: 768px;">
-    <canvas id="gameCanvas" width="1024" height="768"></canvas>
-
-    <div class="ui-overlay" id="gameUI" style="opacity:0; visibility: hidden; transition: 0.3s;">
-        <div class="stats">
-            🪙 МОНЕТЫ <span id="coinCounter">0</span>
+<div class="game-wrapper">
+    <canvas id="gameCanvas" width="1024" height="640"></canvas>
+    
+    <div class="game-stats" id="gameUI">
+        <div class="stat">
+            <span class="stat-label">●</span>
+            <span class="stat-value" id="coinCounter">0</span>
         </div>
-        <div class="stats">
-            📏 МЕТРЫ <span id="distanceCounter">0</span>
+        <div class="stat">
+            <span class="stat-label">◆</span>
+            <span class="stat-value" id="distanceCounter">0</span>
         </div>
     </div>
 
-    <div id="mainMenu" class="menu-panel">
-        <div class="menu-card">
-            <h1>🌋 THE FLOOR IS LAVA 🌋</h1>
-            <div class="name-input">
-                <input type="text" id="playerNameInput" placeholder="Имя пушистика" maxlength="16" autocomplete="off">
-            </div>
-            <button id="startGameBtn" class="start-btn">🔥 СТАРТ 🔥</button>
+    <div id="mainMenu" class="overlay">
+        <div class="modal">
+            <h1>MINIMAL RUN</h1>
             <div class="leaderboard">
-                <h3>🏆 ТОП-10 ЛИДЕРОВ 🏆</h3>
-                <ol id="leaderboardList">
-                    <li>— Загрузка —</li>
-                </ol>
+                <h3>BEST</h3>
+                <ol id="leaderboardList"></ol>
             </div>
+            <input type="text" id="playerNameInput" placeholder="name" maxlength="14">
+            <button id="startGameBtn">START</button>
         </div>
     </div>
 
-    <div id="gameOverlay" class="gameover-panel hidden">
-        <div class="gameover-card">
-            <h2 style="color:#ff7b42; font-size: 2rem;">💀 ПОРАЖЕНИЕ 💀</h2>
-            <p>📏 Пройдено: <strong id="finalDistance">0</strong> м</p>
-            <p>🪙 Собрано монет: <strong id="finalCoins">0</strong></p>
+    <div id="gameOverlay" class="overlay hidden">
+        <div class="modal gameover-card">
+            <p>◆ GAME OVER ◆</p>
+            <div class="final-numbers">
+                <div><span id="finalDistance">0</span><br><span style="font-size:0.7rem; color:#666">DIST</span></div>
+                <div><span id="finalCoins">0</span><br><span style="font-size:0.7rem; color:#666">COIN</span></div>
+            </div>
             <div class="flex-btns">
-                <button id="restartBtnGameOver">🔄 ЗАНОВО</button>
-                <button id="exitToMenuBtn">🏠 МЕНЮ</button>
+                <button id="restartBtnGameOver">RETRY</button>
+                <button id="exitToMenuBtn">MENU</button>
             </div>
         </div>
     </div>
 </div>
+
 <script src="JS/JavaScript.js"></script>
 </body>
 </html>
