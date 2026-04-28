@@ -1,4 +1,11 @@
-      * {
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ЗМЕЙКА • КИБЕРПАНК 2077</title>
+    <style>
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -6,77 +13,116 @@
         }
 
         body {
-            background: linear-gradient(145deg, #0a0a1a 0%, #1a0a0a 100%);
+            background: radial-gradient(circle at 20% 30%, #03030f, #000000);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', 'Poppins', 'Press Start 2P', 'Courier New', monospace;
+            font-family: 'Orbitron', 'Share Tech Mono', 'Segoe UI', monospace;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* голографический шум */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,255,0.02) 0px, rgba(0,255,255,0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* неоновая сетка */
+        body::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .game-container {
-            border-radius: 40px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 12px;
-            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 100, 0, 0.2);
+            border-radius: 48px;
+            background: rgba(0, 5, 15, 0.65);
+            padding: 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.3), 0 20px 40px rgba(0,0,0,0.8), inset 0 0 40px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            z-index: 10;
         }
 
         canvas {
             display: block;
             margin: 0 auto;
-            border-radius: 28px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 32px;
+            box-shadow: 0 0 0 3px #0ff3, 0 0 0 6px #f0f3, 0 0 20px rgba(0, 255, 255, 0.6);
             cursor: pointer;
+            transition: filter 0.2s;
         }
 
         button, .menu-btn, .restart-btn {
-            background: linear-gradient(135deg, #ff6a2e, #ff3a0a);
-            border: none;
-            font-family: inherit;
+            background: linear-gradient(95deg, #0a0f1f, #021a2a);
+            border: 1.5px solid #0ff;
+            font-family: 'Orbitron', monospace;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             padding: 12px 28px;
-            border-radius: 60px;
-            color: white;
+            border-radius: 40px;
+            color: #0ff;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 5px 0 #8b2a0a;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+            transition: 0.2s;
+            box-shadow: 0 0 8px #0ff3, inset 0 0 4px #0ff3;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
         }
 
         button:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #8b2a0a;
+            transform: scale(0.96);
+            box-shadow: 0 0 16px #0ff;
         }
 
         button:hover {
-            background: linear-gradient(135deg, #ff8a4e, #ff5a2a);
-            transform: translateY(-2px);
-            box-shadow: 0 7px 0 #8b2a0a;
+            background: #0ff2;
+            color: #fff;
+            border-color: #f0f;
+            box-shadow: 0 0 18px #f0f, inset 0 0 6px #f0f;
+            text-shadow: 0 0 5px #f0f;
         }
 
         input {
-            font-family: 'Segoe UI', monospace;
-            font-size: 1.2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
             padding: 12px 20px;
             border-radius: 60px;
-            border: none;
-            background: #fff8e7;
+            border: 1.5px solid #0ff;
+            background: #010a12cc;
+            color: #0ff;
             text-align: center;
             outline: none;
             transition: all 0.2s;
-            box-shadow: inset 0 0 0 2px #ffb882, 0 4px 12px rgba(0,0,0,0.2);
+            backdrop-filter: blur(8px);
+            letter-spacing: 1px;
         }
 
         input:focus {
+            border-color: #f0f;
+            box-shadow: 0 0 20px #f0f, inset 0 0 6px #f0f;
             transform: scale(1.02);
-            box-shadow: inset 0 0 0 3px #ff6a2e, 0 6px 14px black;
+            color: #fff;
         }
 
         .screen {
-            transition: opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.5s;
+            transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.4s;
         }
 
         .hidden {
@@ -94,30 +140,32 @@
             display: flex;
             justify-content: space-between;
             font-weight: bold;
-            text-shadow: 2px 2px 0 #00000080;
-            color: #ffefc0;
+            text-shadow: 0 0 8px #0ff, 0 0 2px #000;
+            color: #0ff;
             font-size: 1.6rem;
-            font-family: monospace;
+            font-family: 'Orbitron', monospace;
             z-index: 20;
         }
 
         .stats {
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(8px);
-            padding: 10px 24px;
-            border-radius: 50px;
+            background: rgba(0, 10, 20, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 12px 28px;
+            border-radius: 60px;
             display: flex;
-            gap: 32px;
+            gap: 40px;
             pointer-events: auto;
             font-weight: bold;
-            border: 1px solid rgba(255, 100, 0, 0.5);
+            border: 1px solid #0ff;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
         }
 
         .stats span {
-            color: #ffcc44;
-            font-size: 1.9rem;
-            margin-left: 8px;
+            color: #f0f;
+            font-size: 2rem;
+            margin-left: 10px;
             font-weight: bold;
+            text-shadow: 0 0 6px #f0f;
         }
 
         .menu-panel {
@@ -126,73 +174,79 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 5, 15, 0.88);
-            backdrop-filter: blur(14px);
+            background: radial-gradient(circle at center, #010a1ccc, #000000dd);
+            backdrop-filter: blur(18px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 30;
-            border-radius: 28px;
+            border-radius: 44px;
             transition: all 0.4s ease;
         }
 
         .menu-card {
-            background: linear-gradient(135deg, #2a1a2ecc, #1a0a1ecc);
-            backdrop-filter: blur(12px);
-            width: 520px;
-            padding: 35px 30px;
-            border-radius: 70px;
+            background: rgba(2, 10, 22, 0.85);
+            backdrop-filter: blur(16px);
+            width: 560px;
+            padding: 40px 30px;
+            border-radius: 80px;
             text-align: center;
-            border: 2px solid rgba(255, 120, 40, 0.8);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.6);
-            transition: transform 0.3s;
+            border: 2px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(135deg, #0ff, #f0f);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3), 0 20px 40px black;
+            transition: 0.3s;
         }
 
         .menu-card h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffaa55, #ff5511);
+            background: linear-gradient(135deg, #0ff, #f0f);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: none;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px #0ff5;
         }
 
         .leaderboard {
-            background: #1a0f1faa;
+            background: #001a1faa;
             margin: 20px 0;
             padding: 15px;
-            border-radius: 45px;
+            border-radius: 48px;
             text-align: left;
             font-size: 0.9rem;
             max-height: 240px;
             overflow-y: auto;
-            border: 1px solid #ff884466;
+            border: 1px solid #0ff8;
+            backdrop-filter: blur(4px);
         }
 
         .leaderboard h3 {
             text-align: center;
-            color: #ffbb77;
+            color: #0ff;
             margin-bottom: 12px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 3px cyan;
         }
 
         .leaderboard ol {
             padding-left: 25px;
-            color: #f2e6c9;
+            color: #bbf9ff;
         }
 
         .leaderboard li {
-            margin: 5px 0;
-            font-family: monospace;
+            margin: 6px 0;
+            font-family: 'Share Tech Mono', monospace;
             font-size: 1rem;
+            font-weight: bold;
         }
 
         .name-input {
-            margin: 15px 0;
+            margin: 20px 0;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
         }
 
@@ -202,35 +256,432 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(16px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 35;
-            border-radius: 28px;
+            border-radius: 44px;
             transition: all 0.3s ease;
         }
 
         .gameover-card {
-            background: linear-gradient(135deg, #2a1520, #1a0a15);
-            padding: 35px;
-            border-radius: 65px;
+            background: #030b15dd;
+            backdrop-filter: blur(20px);
+            padding: 38px;
+            border-radius: 70px;
             text-align: center;
-            width: 400px;
-            border: 2px solid #ff6a2e;
-            box-shadow: 0 15px 35px black;
+            width: 420px;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #f0f, #0ff);
+            border-image-slice: 1;
+            box-shadow: 0 0 45px #f0f3;
         }
 
         .gameover-card p {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin: 15px;
-            color: #ffcf9a;
+            color: #0ff;
+            text-shadow: 0 0 8px cyan;
+            font-weight: bold;
         }
 
         .flex-btns {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 25px;
         }
+
+        /* Стилизация скролла */
+        .leaderboard::-webkit-scrollbar {
+            width: 6px;
+        }
+        .leaderboard::-webkit-scrollbar-track {
+            background: #022;
+            border-radius: 10px;
+        }
+        .leaderboard::-webkit-scrollbar-thumb {
+            background: #0ff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container" id="gameContainer">
+    <canvas id="snakeCanvas" width="800" height="600"></canvas>
+
+    <div class="ui-overlay">
+        <div class="stats">🍎 СЧЁТ <span id="scoreValue">0</span></div>
+        <div class="stats">⚡ РЕКОРД <span id="highScoreValue">0</span></div>
+    </div>
+
+    <!-- МЕНЮ СТАРТА -->
+    <div id="startMenu" class="menu-panel screen">
+        <div class="menu-card">
+            <h1>⛓️ CYBER SNAKE ⛓️</h1>
+            <div class="leaderboard">
+                <h3>🏆 ТОП ИГРОКОВ 🏆</h3>
+                <ol id="leaderboardList">
+                    <li>— Загрузка —</li>
+                </ol>
+            </div>
+            <div class="name-input">
+                <input type="text" id="playerNameInput" placeholder="◈ ВВЕДИ КОД-ИМЯ ◈" maxlength="16">
+                <button id="startGameBtn">▶ СТАРТ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЭКРАН GAME OVER -->
+    <div id="gameOverPanel" class="gameover-panel screen hidden">
+        <div class="gameover-card">
+            <p>💀 СИСТЕМА ПЕРЕГРУЖЕНА 💀</p>
+            <p>🐍 ОЧКИ: <span id="finalScore">0</span></p>
+            <div class="flex-btns">
+                <button id="restartGameBtn">🔄 RESTART</button>
+                <button id="menuFromOverBtn">🏠 МЕНЮ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ---------- КИБЕР-ЗМЕЙКА ----------
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Параметры сетки
+        const gridSize = 20;      // 20x20 клеток
+        const cellSize = canvas.width / gridSize; // 40px
+        
+        let snake = [
+            {x: 10, y: 10},
+            {x: 9, y: 10},
+            {x: 8, y: 10},
+            {x: 7, y: 10}
+        ];
+        let direction = 'RIGHT';
+        let nextDirection = 'RIGHT';
+        let food = {x: 15, y: 10};
+        let score = 0;
+        let gameLoop = null;
+        let gameActive = false;
+        
+        let highScore = localStorage.getItem('cyberHighScore') ? parseInt(localStorage.getItem('cyberHighScore')) : 0;
+        document.getElementById('highScoreValue').innerText = highScore;
+        
+        // ---- лидерборд (массив объектов {name, score}) ----
+        let leaderboard = [];
+        function loadLeaderboard() {
+            const stored = localStorage.getItem('cyberLeaderboard');
+            if(stored) {
+                try{
+                    leaderboard = JSON.parse(stored);
+                }catch(e){ leaderboard = []; }
+            }
+            if(!leaderboard.length) {
+                leaderboard = [
+                    {name: "NEON_GHOST", score: 42},
+                    {name: "CYBER_R00T", score: 28},
+                    {name: "DATA_SNAKE", score: 19}
+                ];
+                saveLeaderboard();
+            }
+            renderLeaderboardUI();
+        }
+        
+        function saveLeaderboard() {
+            leaderboard.sort((a,b)=>b.score - a.score);
+            if(leaderboard.length > 8) leaderboard = leaderboard.slice(0,8);
+            localStorage.setItem('cyberLeaderboard', JSON.stringify(leaderboard));
+        }
+        
+        function renderLeaderboardUI() {
+            const listEl = document.getElementById('leaderboardList');
+            if(!listEl) return;
+            if(leaderboard.length === 0){
+                listEl.innerHTML = '<li>✧ НЕТ ДАННЫХ ✧</li>';
+                return;
+            }
+            let html = '';
+            leaderboard.forEach((entry, idx) => {
+                html += `<li>${idx+1}. ${entry.name.toUpperCase()}  —  ${entry.score} ⚡</li>`;
+            });
+            listEl.innerHTML = html;
+        }
+        
+        function addScoreToLeaderboard(name, finalScore) {
+            if(!name || name.trim() === "") name = "ANON";
+            const cleanName = name.trim().substring(0, 14);
+            leaderboard.push({name: cleanName, score: finalScore});
+            leaderboard.sort((a,b)=>b.score - a.score);
+            if(leaderboard.length > 8) leaderboard = leaderboard.slice(0,8);
+            saveLeaderboard();
+            renderLeaderboardUI();
+            // обновить рекорд если надо
+            if(finalScore > highScore) {
+                highScore = finalScore;
+                localStorage.setItem('cyberHighScore', highScore);
+                document.getElementById('highScoreValue').innerText = highScore;
+            }
+        }
+        
+        // рандомная еда
+        function randomFood() {
+            const freeCells = [];
+            // быстрая проверка (maximum 400 клеток норм)
+            for(let i=0; i<gridSize; i++) {
+                for(let j=0; j<gridSize; j++) {
+                    if(!snake.some(segment => segment.x === i && segment.y === j)) {
+                        freeCells.push({x:i, y:j});
+                    }
+                }
+            }
+            if(freeCells.length === 0) return null;
+            const rand = Math.floor(Math.random() * freeCells.length);
+            return freeCells[rand];
+        }
+        
+        function updateGame() {
+            if(!gameActive) return;
+            
+            direction = nextDirection;
+            let head = {...snake[0]};
+            switch(direction){
+                case 'RIGHT': head.x += 1; break;
+                case 'LEFT': head.x -= 1; break;
+                case 'UP': head.y -= 1; break;
+                case 'DOWN': head.y += 1; break;
+            }
+            
+            // проверка столкновения со стенами
+            if(head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
+                gameOver();
+                return;
+            }
+            
+            let ateFood = (head.x === food.x && head.y === food.y);
+            
+            // вставляем голову
+            snake.unshift(head);
+            if(!ateFood) {
+                snake.pop();
+            } else {
+                score++;
+                document.getElementById('scoreValue').innerText = score;
+                const newFood = randomFood();
+                if(newFood) {
+                    food = newFood;
+                } else {
+                    // победа - заполнили всё поле!
+                    gameWin();
+                    return;
+                }
+            }
+            
+            // проверка столкновения с собой (голова не должна пересекаться с остальным телом)
+            const headPos = snake[0];
+            if(snake.slice(1).some(segment => segment.x === headPos.x && segment.y === headPos.y)) {
+                gameOver();
+                return;
+            }
+            
+            drawGame();
+        }
+        
+        function gameWin(){
+            if(gameActive){
+                gameActive = false;
+                if(gameLoop) clearInterval(gameLoop);
+                gameLoop = null;
+                // победа - запись рекорда
+                const playerName = document.getElementById('playerNameInput').value;
+                addScoreToLeaderboard(playerName, score);
+                document.getElementById('finalScore').innerText = score;
+                document.getElementById('gameOverPanel').classList.remove('hidden');
+                drawGame(); // финальный рендер
+            }
+        }
+        
+        function gameOver() {
+            if(!gameActive) return;
+            gameActive = false;
+            if(gameLoop) clearInterval(gameLoop);
+            gameLoop = null;
+            const playerName = document.getElementById('playerNameInput').value;
+            addScoreToLeaderboard(playerName, score);
+            document.getElementById('finalScore').innerText = score;
+            document.getElementById('gameOverPanel').classList.remove('hidden');
+            drawGame();
+        }
+        
+        // НЕЙРОННАЯ ГРАФИКА - ВИЗУАЛ КИБЕРПАНК
+        function drawGame(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // тёмная сетка с глитчем
+            for(let i=0; i<gridSize; i++){
+                for(let j=0; j<gridSize; j++){
+                    ctx.fillStyle = ( (i+j)%2 === 0 ) ? '#021018' : '#001c24';
+                    ctx.fillRect(i*cellSize, j*cellSize, cellSize-0.5, cellSize-0.5);
+                    ctx.strokeStyle = '#0ff2';
+                    ctx.strokeRect(i*cellSize, j*cellSize, cellSize, cellSize);
+                }
+            }
+            
+            // рисуем еду - анимированный глитч-куб
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#f0f';
+            ctx.fillStyle = '#ff33cc';
+            ctx.fillRect(food.x*cellSize+2, food.y*cellSize+2, cellSize-4, cellSize-4);
+            ctx.fillStyle = '#ff66ff';
+            ctx.fillRect(food.x*cellSize+4, food.y*cellSize+4, cellSize-8, cellSize-8);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(food.x*cellSize+8, food.y*cellSize+8, 5, 5);
+            ctx.shadowBlur = 0;
+            
+            // змея (кибер-сегменты)
+            for(let i=0; i<snake.length; i++){
+                const seg = snake[i];
+                const x = seg.x * cellSize;
+                const y = seg.y * cellSize;
+                const grad = ctx.createLinearGradient(x, y, x+cellSize, y+cellSize);
+                grad.addColorStop(0, '#0cf');
+                grad.addColorStop(1, '#0a7');
+                ctx.fillStyle = grad;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = '#0ff';
+                ctx.fillRect(x+1, y+1, cellSize-2, cellSize-2);
+                ctx.fillStyle = '#ffffffcc';
+                ctx.fillRect(x+5, y+4, 6, 4);
+                // глаза
+                if(i===0){
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.arc(x+cellSize-10, y+8, 4, 0, Math.PI*2);
+                    ctx.arc(x+10, y+8, 4, 0, Math.PI*2);
+                    ctx.fill();
+                    ctx.fillStyle = '#000';
+                    ctx.beginPath();
+                    ctx.arc(x+cellSize-11, y+7, 2, 0, Math.PI*2);
+                    ctx.arc(x+9, y+7, 2, 0, Math.PI*2);
+                    ctx.fill();
+                }
+            }
+            ctx.shadowBlur = 0;
+            // эффект скана по краям
+            ctx.strokeStyle = '#f0f';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+        }
+        
+        function startGame(resetWithName=true){
+            if(gameLoop) clearInterval(gameLoop);
+            // сброс переменных
+            snake = [
+                {x: 10, y: 10},
+                {x: 9, y: 10},
+                {x: 8, y: 10},
+                {x: 7, y: 10}
+            ];
+            direction = 'RIGHT';
+            nextDirection = 'RIGHT';
+            score = 0;
+            document.getElementById('scoreValue').innerText = '0';
+            gameActive = true;
+            // генерим еду не на змее
+            const newFood = randomFood();
+            if(newFood) food = newFood;
+            else food = {x: 5, y: 5};
+            drawGame();
+            
+            if(gameLoop) clearInterval(gameLoop);
+            gameLoop = setInterval(() => {
+                updateGame();
+            }, 150);
+        }
+        
+        // обработка клавиш
+        function handleKey(e) {
+            if(!gameActive) return;
+            const key = e.key;
+            const allowed = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+            if(!allowed.includes(key)) return;
+            e.preventDefault();
+            const newDir = {
+                'ArrowUp': 'UP',
+                'ArrowDown': 'DOWN',
+                'ArrowLeft': 'LEFT',
+                'ArrowRight': 'RIGHT'
+            }[key];
+            if((newDir === 'UP' && direction !== 'DOWN') ||
+               (newDir === 'DOWN' && direction !== 'UP') ||
+               (newDir === 'LEFT' && direction !== 'RIGHT') ||
+               (newDir === 'RIGHT' && direction !== 'LEFT')) {
+                nextDirection = newDir;
+            }
+        }
+        
+        // UI элементы
+        const startBtn = document.getElementById('startGameBtn');
+        const startMenuDiv = document.getElementById('startMenu');
+        const gameOverPanel = document.getElementById('gameOverPanel');
+        const restartBtn = document.getElementById('restartGameBtn');
+        const menuFromOverBtn = document.getElementById('menuFromOverBtn');
+        const playerNameInput = document.getElementById('playerNameInput');
+        
+        function hideStartMenu(){
+            startMenuDiv.classList.add('hidden');
+        }
+        
+        function showStartMenu(resetGameFlag=false){
+            if(gameLoop) clearInterval(gameLoop);
+            gameActive = false;
+            startMenuDiv.classList.remove('hidden');
+            gameOverPanel.classList.add('hidden');
+            drawGame();
+            loadLeaderboard();
+        }
+        
+        startBtn.addEventListener('click', ()=>{
+            let name = playerNameInput.value.trim();
+            if(name === "") name = "CYBER_HAXOR";
+            playerNameInput.value = name;
+            hideStartMenu();
+            startGame(true);
+        });
+        
+        restartBtn.addEventListener('click', ()=>{
+            gameOverPanel.classList.add('hidden');
+            startGame(true);
+        });
+        
+        menuFromOverBtn.addEventListener('click', ()=>{
+            gameOverPanel.classList.add('hidden');
+            showStartMenu();
+        });
+        
+        window.addEventListener('keydown', handleKey);
+        
+        // инициализация отображения
+        loadLeaderboard();
+        drawGame();
+        
+        // стартовое состояние: меню видимо, игра не активна
+        gameActive = false;
+        if(gameLoop) clearInterval(gameLoop);
+        gameLoop = null;
+        
+        // добавим эффект при клике на канвас для фокуса
+        canvas.addEventListener('click', ()=> canvas.focus());
+        canvas.focus();
+        
+        // сделать повторные старты чистыми
+        window.showStartMenu = showStartMenu;
+    })();
+</script>
+</body>
+</html>
